@@ -1,0 +1,286 @@
+# API Documentation JSON Examples
+
+Here are comprehensive JSON examples for your financial forecasting API endpoints, suitable for documentation:
+
+## 1. Demand Prediction Endpoint (`/api/predict/demand/`)
+
+### Request JSON:
+
+```json
+{
+  "name": "Monthly Sales Forecast",
+  "historical_data": [
+    {"ds": "2023-01-01", "y": 100},
+    {"ds": "2023-01-02", "y": 110},
+    {"ds": "2023-01-03", "y": 105},
+    {"ds": "2023-01-04", "y": 120},
+    {"ds": "2023-01-05", "y": 115}
+  ],
+  "forecast_periods": 30,
+  "clean_anomalies": true,
+  "anomaly_threshold": 3.0,
+  "optimize_parameters": false,
+  "perform_validation": true,
+  "use_ensemble": false,
+  "ensemble_methods": ["prophet", "arima", "ets"]
+}
+```
+
+### Response JSON:
+
+```json
+{
+  "forecast": [
+    {
+      "ds": "2023-01-06",
+      "yhat": 118.32,
+      "yhat_lower": 108.45,
+      "yhat_upper": 128.19
+    },
+    {
+      "ds": "2023-01-07",
+      "yhat": 115.87,
+      "yhat_lower": 105.92,
+      "yhat_upper": 125.82
+    }
+    // ... remaining forecast periods
+  ],
+  "forecast_id": 42,
+  "accuracy_metrics": {
+    "mape": 0.062,
+    "rmse": 6.84,
+    "coverage": 0.95
+  },
+  "success": true
+}
+```
+
+## 2. Cash Flow Prediction Endpoint (`/api/predict/cashflow/`)
+
+### Request JSON:
+
+```json
+{
+  "name": "Quarterly Cash Flow Projection",
+  "historical_data": [
+    {"ds": "2023-01-01", "y": 5000},
+    {"ds": "2023-01-08", "y": 5200},
+    {"ds": "2023-01-15", "y": 4800},
+    {"ds": "2023-01-22", "y": 5500},
+    {"ds": "2023-01-29", "y": 6000}
+  ],
+  "forecast_periods": 90,
+  "clean_anomalies": true,
+  "anomaly_threshold": 2.5,
+  "optimize_parameters": true,
+  "perform_validation": true,
+  "use_ensemble": false,
+  "ensemble_methods": ["prophet", "arima", "ets"],
+  "seasonality": [
+    {
+      "name": "weekly",
+      "period": 7,
+      "fourier_order": 3
+    },
+    {
+      "name": "monthly",
+      "period": 30.5,
+      "fourier_order": 5
+    },
+    {
+      "name": "quarterly",
+      "period": 91.25,
+      "fourier_order": 4
+    }
+  ]
+}
+```
+
+### Response JSON:
+
+```json
+{
+  "forecast": [
+    {
+      "ds": "2023-02-05",
+      "yhat": 5873.42,
+      "yhat_lower": 5423.18,
+      "yhat_upper": 6323.66
+    },
+    {
+      "ds": "2023-02-12",
+      "yhat": 5912.87,
+      "yhat_lower": 5462.53,
+      "yhat_upper": 6363.21
+    }
+    // ... remaining forecast periods
+  ],
+  "forecast_id": 43,
+  "accuracy_metrics": {
+    "mape": 0.047,
+    "rmse": 243.56,
+    "coverage": 0.94
+  },
+  "success": true
+}
+```
+
+## 3. Inventory Forecasting Endpoint (`/api/predict/inventory/`)
+
+### Request JSON:
+
+```json
+{
+  "name": "Product Stock Forecast",
+  "historical_data": [
+    {"ds": "2023-01-01", "y": 500},
+    {"ds": "2023-01-08", "y": 480},
+    {"ds": "2023-01-15", "y": 460},
+    {"ds": "2023-01-22", "y": 520},
+    {"ds": "2023-01-29", "y": 540}
+  ],
+  "forecast_periods": 60,
+  "clean_anomalies": true,
+  "anomaly_threshold": 3.0,
+  "optimize_parameters": false,
+  "perform_validation": false,
+  "use_ensemble": false,
+  "ensemble_methods": ["prophet", "arima", "ets"],
+  "holidays": [
+    {
+      "holiday": "BlackFriday",
+      "ds": "2023-11-24",
+      "lower_window": -3,
+      "upper_window": 0
+    },
+    {
+      "holiday": "Christmas",
+      "ds": "2023-12-25",
+      "lower_window": -7,
+      "upper_window": 2
+    }
+  ],
+  "regressors": {
+    "price": [19.99, 19.99, 19.99, 17.99, 17.99],
+    "promo": [0, 0, 1, 1, 0]
+  },
+  "future_regressors": {
+    "price": [17.99, 17.99, 17.99, 17.99, 20.99, 20.99, 20.99, 20.99, 20.99, 20.99, 20.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99, 17.99],
+    "promo": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  }
+}
+```
+
+### Response JSON:
+
+```json
+{
+  "forecast": [
+    {
+      "ds": "2023-02-05",
+      "yhat": 532.65,
+      "yhat_lower": 498.21,
+      "yhat_upper": 567.09
+    },
+    {
+      "ds": "2023-02-12",
+      "yhat": 528.43,
+      "yhat_lower": 493.99,
+      "yhat_upper": 562.87
+    }
+    // ... remaining forecast periods
+  ],
+  "forecast_id": 44,
+  "success": true
+}
+```
+
+## 4. Ensemble Forecast Example
+
+When using `use_ensemble: true`:
+
+### Request JSON:
+
+```json
+{
+  "name": "Ensemble Sales Forecast",
+  "historical_data": [
+    {"ds": "2023-01-01", "y": 100},
+    {"ds": "2023-01-02", "y": 110},
+    {"ds": "2023-01-03", "y": 105},
+    {"ds": "2023-01-04", "y": 120},
+    {"ds": "2023-01-05", "y": 115}
+  ],
+  "forecast_periods": 7,
+  "use_ensemble": true,
+  "ensemble_methods": ["prophet", "arima", "ets"]
+}
+```
+
+### Response JSON:
+
+```json
+{
+  "forecast": [
+    {
+      "ds": "2023-01-06",
+      "yhat": 117.54,
+      "yhat_lower": 105.79,
+      "yhat_upper": 129.29,
+      "methods": ["prophet", "arima", "ets"],
+      "individual_forecasts": {
+        "prophet": 118.32,
+        "arima": 116.47,
+        "ets": 117.83
+      }
+    },
+    // ... remaining forecast periods
+  ],
+  "forecast_id": 45,
+  "success": true
+}
+```
+
+## 5. GET Saved Forecasts Example (`/api/demand-forecasts/`)
+
+### Response JSON:
+
+```json
+{
+  "count": 3,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 42,
+      "name": "Monthly Sales Forecast",
+      "historical_data": [{"ds": "2023-01-01", "y": 100}, ...],
+      "forecast_periods": 30,
+      "forecast_data": [{"ds": "2023-01-06", "yhat": 118.32, ...}, ...],
+      "created_at": "2023-04-15T14:30:22Z",
+      "accuracy": 0.062
+    },
+    {
+      "id": 41,
+      "name": "Weekly Sales Forecast",
+      "historical_data": [...],
+      "forecast_periods": 7,
+      "forecast_data": [...],
+      "created_at": "2023-04-14T10:15:43Z", 
+      "accuracy": 0.045
+    },
+    {
+      "id": 40,
+      "name": "Daily Sales Forecast",
+      "historical_data": [...],
+      "forecast_periods": 3,
+      "forecast_data": [...],
+      "created_at": "2023-04-13T16:22:11Z",
+      "accuracy": 0.038
+    }
+  ]
+}
+```
+
+These JSON examples cover all the functionality of your financial forecasting API and should provide comprehensive documentation for users. 
+They show the full range of options available for each endpoint and the expected response formats.
